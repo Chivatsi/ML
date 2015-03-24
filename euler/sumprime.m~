@@ -1,0 +1,15 @@
+
+function totalsum=sumprime(datalen)
+	totals=0
+	index=1:1:datalen;
+	value=isprime(index);
+	data=[index; value];
+	for i= data
+		if value==1
+			totals=totals+key;
+		endif
+	endfor
+	totalsum=totals
+endfunction
+
+
