@@ -9,7 +9,7 @@ function backpropagation
     dataset=importdata('pimadiabetes.data.txt');
     index=(dataset(:,9)==2);
     dataset(index, 9)=0;
-    size(dataset)
+    size(dataset);
     
     %training data
     trainingdata=dataset(1:600,1:8);
@@ -21,18 +21,19 @@ function backpropagation
     
     
     %Learning rate
-    learning_rate=0.3;
+    learning_rate=input("Learning Rate:\n")
     %initializing the weights
     weights1=rand(3, 8);
     weights2=rand(3, 3);
     weights3=rand(1, 3);
     
     %number of iterations
-    sizel=10;
+    sizel=input("Number of Learning Iterations:\n");
     
     sqerror=zeros(length(trainingdata),1);
     error_rate=zeros(sizel,1);
     
+    disp("Running...........Wait->>\n")
     for n=1:sizel
         totalerror=0;
         for i=1:size(trainingdata, 1)
