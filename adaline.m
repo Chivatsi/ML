@@ -1,36 +1,38 @@
-function perceptron
+function adaline
+    %Uses a Linear function as an activation function
     format bank;
     #Importing iris data
-    dataset=importdata('pimadiabetes.data.txt')
+    #dataset=importdata('iris.txt');
     #training data
-    trainingdata=dataset(1:10,1:8);
+    #trainingdata=dataset([1:25 51:75 101:125],[2 5]);
     #Actual Output
-    actual_output=dataset(1:10 ,9);
-    
+    #actual_output=dataset([1:25 51:75 101:125],1);
+    #
     #testingdata
-    testingdata=dataset(100:150,1:8);
+    #testingdata=dataset([30:40 80:90 141:150],[2 5]);
     #Actual Output Testing
-    testing_output=dataset(100:150,9);
+    #testing_output=dataset([30:40 80:90 141:150],1);
     
     
 
-    #trainingdata=[1 0 0;
-    #             1 1 0;
-    #             1 0 1;
-    #             1 1 1;]
-    #actual_output=[1;1;1;0]
-    #
-    #testingdata=[1 0 1;
-    #             1 1 0;
-    #             1 1 1;
-    #             1 0 0;];
+    trainingdata=[1 0 0;
+                 1 1 0;
+                 1 0 1;
+                 1 1 1;]
+    actual_output=[1;2;3;4]
+    
+    testingdata=[1 0 1;
+                 1 1 0;
+                 1 1 1;
+                 1 0 0;];
+    testing_output=[3;2;4;0]
     %Initializing the weights
-    weight=zeros(1, 8);
-    threshold=input("Enter Threshold:\n")
+    weight=zeros(1, 3);
     learning_rate=input("Enter Learning Rate 0-1:\n")
+    countmaxi=input("Enter Number of Iterations:\n")
     count=1;
     errorvector=zeros(5,1);
-    while 1
+    while count<countmaxi
         error_count=0;
         sumerror=0;
         for i=1:length(trainingdata)
@@ -39,14 +41,15 @@ function perceptron
             input=input';
             sum=(weight)*input;
             %steping function
-            output=activation(sum, threshold);
-            errord=actual_output(i)-output;
+            output=activation(sum);
+            errord=(actual_output(i)-output)
             sumerror=sumerror+errord;
             if errord!=0
                 error_count=error_count+1;
                 weightchange=learning_rate*errord.*input';
-                weight=weight+weightchange;
-            endif  
+                weight=weight+weightchange
+            endif 
+            
         endfor
         errorvector(count)=(sumerror/length(trainingdata));
         
@@ -75,8 +78,8 @@ function perceptron
             input=input';
             sum=(weight)*input;
             %steping function
-            output=activation(sum, threshold)
-            errord(i)=testing_output(i)-output;
+            output=activation(sum)
+            errord(i)=(testing_output(i)-output);
     endfor
         
     %plot a graph of error against testing set
@@ -90,13 +93,7 @@ function perceptron
 endfunction
 
 %Activation function
-function ret=activation(x, threshold)
-    
-    if x>threshold
-            out=2;
-        else
-            out=1;
-    endif
-    ret=out;
+function ret=activation(threshold)
+    ret=(threshold);
 endfunction
     
